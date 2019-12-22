@@ -17,9 +17,7 @@ public class Neo4jNodes {
 	public static String SERVER_ROOT_URI = "http://localhost:7474/db/data/";
 
 	public SwitchData nodes(SwitchData swD) {
-		System.out.println("Switch data before:" + swD);
 		swD.setLocation(createNode(swD));
-		System.out.println("Switch data:" + swD.getLocation());
 		addLabel(swD.getLocation(), "Switch");
 		return swD;
 	}
@@ -42,7 +40,6 @@ public class Neo4jNodes {
 
 			JSONObject entity = new JSONObject(response.getEntity(String.class));
 			String uri = entity.get("self").toString();
-			System.out.println("URI ne may ba" + uri);
 			response.close();
 
 			return URI.create(uri);

@@ -54,9 +54,6 @@ public class Neo4jLinksExt {
 				System.out.println();
 			}
 			StringBuilder sb = new StringBuilder();
-			System.out.println("DEST la gi ma loi:"+ dst + "port dau: "+ dst.getPort());
-			System.out.println("Roi source la gi ma: "+ src);
-
 			if (src != null && dst !=null){
 				sb.append("{ \"direction\" : \"" + "bidirectional" + "\", \"dstport\" : " + dst.getPort().toString()
 						+ ", \"srcport\" : " + src.getPort().toString() + ", \"type\" : \"" + "external"

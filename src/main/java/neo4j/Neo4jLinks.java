@@ -32,11 +32,7 @@ public class Neo4jLinks {
 			if (arraySWD.get(i).getDPID().equals(linkD.getSrcS())) {
 				nodeSRC = arraySWD.get(i).getLocation();
 			} else if (arraySWD.get(i).getDPID().equals(linkD.getDstS())) {
-				nodeDST = arraySWD.get(i).getLocation();
-				System.out.println("Co DEST"+ linkD.getDstS());
-			}
-
-			System.out.println("SRC la gi "+linkD.getSrcS() +"DEST la gi:"+ linkD.getDstS()+ "ARRAY i"+ arraySWD.get(i).getDPID());
+				nodeDST = arraySWD.get(i).getLocation();			}
 		}
 
 		StringBuilder sb = new StringBuilder();
@@ -44,8 +40,7 @@ public class Neo4jLinks {
 		sb.append("{ \"direction\" : \"" + linkD.getDirection() + "\", \"dstport\" : " + String.valueOf(linkD.getDstP())
 				+ ", \"srcport\" : " + String.valueOf(linkD.getSrcP()) + ", \"type\" : \"" + linkD.getType()
 				+ "\", \"srcswitch\" : \"" + linkD.getSrcS() + "\", \"dstswitch\" : \"" + linkD.getDstS() + "\"}");
-		System.out.println("SOURCE NODE: "+ nodeSRC);
-		System.out.println("DEST "+ nodeDST);
+
 		if (!linkD.getSrcS().equals(linkD.getDstS())){
 			addRelationship(nodeSRC, nodeDST, sb.toString(), linkD);
 		}
