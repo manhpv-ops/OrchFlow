@@ -47,14 +47,23 @@ public class Neo4jLinksExt {
 					src = arrayLED.get(j);
 					nodeSRC = arraySWD.get(i).getLocation();
 				}
+				if (i>=0 && j>=0) {
+					System.out.println("Array " + i + ": " + arraySWD.get(i) + " " + j + ": " + arrayLED.get(j));
+				}
+				System.out.println("SOUCRE: "+ src + "DEST: "+dst);
+				System.out.println();
 			}
 			StringBuilder sb = new StringBuilder();
+			System.out.println("DEST la gi ma loi:"+ dst + "port dau: "+ dst.getPort());
+			System.out.println("Roi source la gi ma: "+ src);
 
-			sb.append("{ \"direction\" : \"" + "bidirectional" + "\", \"dstport\" : " + dst.getPort().toString()
-					+ ", \"srcport\" : " + src.getPort().toString() + ", \"type\" : \"" + "external"
-					+ "\", \"srcswitch\" : \"" + src.getDPID().toString() + "\", \"dstswitch\" : \""
-					+ dst.getDPID().toString() + "\"}");
-			addRelationship(nodeSRC, nodeDST, src, dst, sb.toString());
+			if (src != null && dst !=null){
+				sb.append("{ \"direction\" : \"" + "bidirectional" + "\", \"dstport\" : " + dst.getPort().toString()
+						+ ", \"srcport\" : " + src.getPort().toString() + ", \"type\" : \"" + "external"
+						+ "\", \"srcswitch\" : \"" + src.getDPID().toString() + "\", \"dstswitch\" : \""
+						+ dst.getDPID().toString() + "\"}");
+				addRelationship(nodeSRC, nodeDST, src, dst, sb.toString());
+			}
 		}
 	}
 
@@ -68,7 +77,7 @@ public class Neo4jLinksExt {
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 				.entity(relationshipJson).header("Authorization", passwd).post(ClientResponse.class);
 
-		if (response.getStatus() == 201 || response.getStatus() == 200) {
+		if (response.getStatus() == 201 ) {
 			final String location = response.getLocation().toString();
 			System.out.println(String.format("POST to [%s], status code [%d], location header [%s]", fromUri,
 					response.getStatus(), location));

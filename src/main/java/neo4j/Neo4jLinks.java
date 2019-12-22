@@ -33,11 +33,10 @@ public class Neo4jLinks {
 				nodeSRC = arraySWD.get(i).getLocation();
 			} else if (arraySWD.get(i).getDPID().equals(linkD.getDstS())) {
 				nodeDST = arraySWD.get(i).getLocation();
-			} else {
-				nodeSRC = arraySWD.get(i).getLocation();
-				nodeDST = nodeSRC;
+				System.out.println("Co DEST"+ linkD.getDstS());
 			}
-			System.out.println("nodesrc: " + linkD.getSrcS() + "; nodedst: " + linkD.getDstS() + "; array:" + arraySWD.get(i).getLocation());
+
+			System.out.println("SRC la gi "+linkD.getSrcS() +"DEST la gi:"+ linkD.getDstS()+ "ARRAY i"+ arraySWD.get(i).getDPID());
 		}
 
 		StringBuilder sb = new StringBuilder();
@@ -45,8 +44,11 @@ public class Neo4jLinks {
 		sb.append("{ \"direction\" : \"" + linkD.getDirection() + "\", \"dstport\" : " + String.valueOf(linkD.getDstP())
 				+ ", \"srcport\" : " + String.valueOf(linkD.getSrcP()) + ", \"type\" : \"" + linkD.getType()
 				+ "\", \"srcswitch\" : \"" + linkD.getSrcS() + "\", \"dstswitch\" : \"" + linkD.getDstS() + "\"}");
-
-		addRelationship(nodeSRC, nodeDST, sb.toString(), linkD);
+		System.out.println("SOURCE NODE: "+ nodeSRC);
+		System.out.println("DEST "+ nodeDST);
+		if (!linkD.getSrcS().equals(linkD.getDstS())){
+			addRelationship(nodeSRC, nodeDST, sb.toString(), linkD);
+		}
 	}
 
 	private static void addRelationship(URI startNode, URI endNode, String jsonAttributes, LinkData linkD)
@@ -59,7 +61,7 @@ public class Neo4jLinks {
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 				.entity(relationshipJson).header("Authorization", passwd).post(ClientResponse.class);
 
-		if (response.getStatus() == 201 || response.getStatus() == 200 ) {
+		if (response.getStatus() == 201 || response.getStatus() == 200) {
 			final String location = response.getLocation().toString();
 			System.out.println(String.format("POST to [%s], status code [%d], location header [%s]", fromUri,
 					response.getStatus(), location));
@@ -84,10 +86,12 @@ public class Neo4jLinks {
 		sb.append("\", ");
 
 		sb.append(" \"start\" : \"");
+
 		sb.append(startNode.toString());
 		sb.append("\", ");
 
 		sb.append(" \"end\" : \"");
+
 		sb.append(endNode.toString());
 		sb.append("\", ");
 

@@ -136,13 +136,16 @@ public class JSONSwitch {
 						arrayLED.add(linkExt);
 					}
 				}
+				System.out.println("xen duoc nhieu ma" + sendNode.nodes(swD));
 				swD = sendNode.nodes(swD);
 				arraySWD.add(swD);
+
 			}
 		}
 
 		catch (JSONException e) {
 			e.printStackTrace();
+			System.out.println("Loi a");
 		}
 
 		return arraySWD;
@@ -235,6 +238,7 @@ public class JSONSwitch {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("doc JSON tu SWITCH: "+ r);
 		return r;
 
 	}

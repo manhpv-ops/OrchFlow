@@ -96,6 +96,7 @@ public class Controllers {
 				jsonhost.readJsonHost_RYU(arraySWD, controllers.get(i));
 			} else if (controllers.get(i).getController().equals("Floodlight")) {
 				arraySWD = jsonswitch.switches_FLOODLIGHT(arrayLED, controllers.get(i));
+				System.out.println("Mang duoc gi"+ arraySWD);
 				jsonlink.readJsonLink_FLOODLIGHT(arraySWD, controllers.get(i));
 				jsonhost.readJsonHost_FLOODLIGHT(arraySWD, controllers.get(i));
 			} else if (controllers.get(i).getController().equals("OpenDaylight")) {
@@ -115,6 +116,7 @@ public class Controllers {
 				return (a.getNumber().compareTo(b.getNumber()));
 			}
 		});
+		System.out.println("ARRAY SWD la gi: "+ arraySWD + " ARRAY LED  "+ arrayLED);
 		sendLinkExt.links(arraySWD, arrayLED);
 		ReactiveRoute.setControllers(controllers);
 		return "principal.xhtml?faces-redirect=true";

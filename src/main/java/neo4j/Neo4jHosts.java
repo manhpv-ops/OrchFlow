@@ -130,13 +130,13 @@ public class Neo4jHosts {
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
 				.entity(relationshipJson).header("Authorization", passwd).post(ClientResponse.class);
 
-		if (response.getStatus() == 201) {
+		if (response.getStatus() == 201 || response.getStatus() == 201) {
 			// final String location = response.getLocation().toString();
 			// System.out.println(String.format("POST to [%s], status code [%d],
 			// location header [%s]", fromUri,
 			// response.getStatus(), location));
 			response.close();
-		} else {
+		} else  {
 			// System.out.println(String.format("POST to [%s], status code
 			// [%d]", fromUri, response.getStatus()));
 			// System.exit(0);
